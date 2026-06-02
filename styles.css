@@ -526,7 +526,8 @@ img { display: block; max-width: 100%; }
 .footer__logo { margin: 0 0 4px; font-weight: 700; font-size: 24px; line-height: 38px; color: #fff; }
 .footer__meta { margin: 0; font-size: 10px; line-height: 16px; color: var(--cyan); }
 
-/* ===== 応募CTA（下部固定）===== */
+/* ===== 応募CTA（下部固定）=====
+   ベタピンク＋内側に余白を空けた白枠＋右下にずれた濃ピンクの影（ステッカー風） */
 .floating-cta {
   position: fixed;
   left: 50%;
@@ -535,19 +536,38 @@ img { display: block; max-width: 100%; }
   width: calc(100% - 32px);
   max-width: calc(var(--col) - 32px);
   z-index: 50;
+}
+.side-cta { position: relative; }  /* ::before（白枠）の基準。floating-ctaはfixedが基準 */
+
+/* 共通のボタン見た目（下部固定CTA・サイドCTA共用） */
+.floating-cta,
+.side-cta {
   display: block;
-  padding: 16px;
+  padding: 18px 16px;
   border-radius: 999px;
-  background: linear-gradient(90deg, var(--pink), var(--blue));
+  background: #db6cb1;            /* ベタピンク */
   color: #fff;
   font-weight: 700;
-  font-size: 16px;
+  font-size: 17px;
   letter-spacing: 1px;
   text-align: center;
   text-decoration: none;
-  box-shadow: 0 8px 24px rgba(247, 113, 199, .35);
+  box-shadow: 5px 8px 0 0 #b9568f; /* 右下にずれた濃ピンクの影 */
+  transition: transform .12s ease, box-shadow .12s ease;
 }
-.floating-cta:active { transform: translateX(-50%) scale(.98); }
+/* 内側に少し余白を空けた白い枠線 */
+.floating-cta::before,
+.side-cta::before {
+  content: "";
+  position: absolute;
+  inset: 7px;
+  border: 2px solid #fff;
+  border-radius: 999px;
+  pointer-events: none;
+}
+/* 押し込み：影を縮めて少し沈ませる */
+.floating-cta:active { transform: translateX(-50%) translate(2px, 3px); box-shadow: 2px 3px 0 0 #b9568f; }
+.side-cta:active     { transform: translate(2px, 3px); box-shadow: 2px 3px 0 0 #b9568f; }
 
 /* ===== スクロール出現アニメ（複数パターン）===== */
 :root { --rv-ease: cubic-bezier(.22, .61, .36, 1); --rv-dur: .8s; }
@@ -665,22 +685,8 @@ img { display: block; max-width: 100%; }
     padding-left: 4px;
   }
 
-  .side-cta {
-    display: block;
-    width: 100%;
-    margin-top: 28px;
-    padding: 17px;
-    border-radius: 999px;
-    background: linear-gradient(90deg, var(--pink), var(--blue));
-    color: #fff;
-    font-weight: 700;
-    font-size: 16px;
-    letter-spacing: 1px;
-    text-align: center;
-    text-decoration: none;
-    box-shadow: 0 8px 24px rgba(247, 113, 199, .35);
-  }
-  .side-cta:active { transform: scale(.98); }
+  /* サイドCTAは共通ボタン見た目を継承。幅と上マージンだけ指定 */
+  .side-cta { width: 100%; margin-top: 28px; }
 
   /* デスクトップでは下部固定CTAを隠す */
   .floating-cta { display: none; }
