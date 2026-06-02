@@ -1,0 +1,604 @@
+/* ===== TryVII 新メンバーオーディション LP =====
+   Figma: 390px幅モバイル基準。配色 = blue #87d3ff / pink #f771c7 / navy #162e59 */
+
+:root {
+  --blue: #87d3ff;
+  --pink: #f771c7;
+  --navy: #162e59;
+  --ink: #15122f;
+  --footer-bg: #34304d;
+  --cyan: #dff9ff;
+  --col: 412px;          /* コンテンツ最大幅 */
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: #ffffff url("./asset/bg.png") center top / cover no-repeat fixed;
+  font-family: "Noto Sans JP", -apple-system, BlinkMacSystemFont, "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+  color: var(--navy);
+  -webkit-font-smoothing: antialiased;
+}
+
+img { display: block; max-width: 100%; }
+
+.visually-hidden {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+/* ===== 全体コンテナ（画面より少しだけ狭く＝左右に背景をちらっと見せる）===== */
+.lp {
+  position: relative;
+  width: calc(100% - 48px);
+  max-width: var(--col);
+  margin: 0 auto;
+  background: #fff;
+}
+
+/* ===== subhead：インライン→スクロールで上端に貼り付き、セクションでスロット切替 =====
+   ・content の左右padding(24px)を突き抜けて枠線まで全幅表示（margin負）
+   ・画像は下揃え＋やや大きめ → 上端がバー上端で切れる（＝固定時は画面上端からはみ出す） */
+/* レイヤー: subhead文字(z30) > 枠線(z20) > 白グラデ下地(z10) */
+
+/* 白グラデ下地：subheadバーと同位置・同サイズで重なる（margin負で高さを相殺）*/
+.subhead-bg {
+  position: sticky;
+  top: -28px;
+  z-index: 10;
+  width: calc(100% + 48px);   /* 列幅（=枠線まで）*/
+  height: 160px;
+  margin: 24px -24px -160px;
+  background: linear-gradient(180deg, #fff 0%, #fff 20%, rgba(255, 255, 255, 0) 100%);
+  pointer-events: none;
+}
+
+.subhead-bar {
+  position: sticky;
+  top: -28px;             /* 貼り付いた時だけ上端28pxを画面外へ＝上がはみ出す（インラインでは全表示）*/
+  z-index: 30;
+  width: calc(100% + 96px);  /* 列の左右へ24pxずつはみ出す（モバイルでは画面端まで）*/
+  margin: 0 -48px 0;
+  height: 124px;
+  overflow: hidden;
+  pointer-events: none;
+}
+.subhead-reel {
+  position: absolute;
+  inset: 0 0 auto 0;
+  display: flex;
+  flex-direction: column;
+  will-change: transform;
+  /* オーバーシュートしないease-out（行き過ぎ＝隣の見切れを防止しつつスナップ感を維持）*/
+  transition: transform .5s cubic-bezier(.16, 1, .3, 1);
+}
+.subhead-cell {
+  position: relative;
+  height: 124px;
+  flex: 0 0 124px;
+  overflow: hidden;
+}
+.subhead-cell img {
+  position: absolute;
+  left: 50%;
+  bottom: 6px;
+  transform: translateX(-50%);
+  width: 106%;            /* 拡張バーよりさらに広げ、列から大胆にはみ出して方眼の上まで */
+  max-width: none;
+  height: auto;
+}
+/* PC（列が最大幅で固定される幅以上）では左右を切らず全表示 */
+@media (min-width: 460px) {
+  .subhead-cell img { width: 100%; }
+}
+
+/* ===== SECTION 01 / ヒーロー ===== */
+.hero {
+  width: 100%;
+  aspect-ratio: 390 / 699;
+  overflow: hidden;
+  background: #0c0a1e;
+}
+.hero__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* ===== 本文（白背景）／左右枠線 ===== */
+.content {
+  position: relative;
+  display: flow-root;     /* 先頭子のmargin相殺を防ぎ、枠線をヒーロー直下から開始させる */
+  padding: 0 24px 40px;
+  background: #fff;
+}
+
+/* 左右の縦枠線：左=水色／右=ピンク（コンテンツ全長） */
+.frame-rule {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  z-index: 20;            /* 白グラデ下地より前面・subhead文字より背面 */
+}
+.frame-rule--l { left: 0;  background: var(--blue); }
+.frame-rule--r { right: 0; background: var(--pink); }
+
+/* セクション単位 */
+.sec {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding-top: 40px;
+  scroll-margin-top: 80px;
+}
+.sec:first-of-type { padding-top: 8px; }
+
+/* セクション装飾矢印（ABOUTのみ：ピンク右上↓／水色左下↑） */
+.deco-arrow {
+  position: absolute;
+  z-index: 1;
+  height: auto;
+  opacity: .9;
+  pointer-events: none;
+}
+.deco-arrow--pink { width: 46px; top: 70px;  right: -8px; }
+.deco-arrow--blue { width: 40px; bottom: 90px; left: -8px; }
+
+/* 小さなキラキラ：画面固定で枠線の上に乗せ、ページ全体のスクロール進捗で上下に横断。
+   ヒーロー通過後（ABOUTが上に着いてから）フェードイン */
+.sparkle {
+  position: fixed;
+  top: 0;
+  z-index: 26;             /* 枠線(z20)より前面・subhead(z30)より背面 */
+  width: 15px;
+  height: auto;
+  pointer-events: none;
+  will-change: transform;
+  opacity: 0;
+  transition: opacity .45s ease;
+}
+.sparkle.is-on { opacity: 1; }
+/* 左右の枠線（列の端）の真上に配置（PCでも端に飛ばない）。transformで-50%して線の中心に乗せる */
+.sparkle--l { left: max(24px, calc(50% - 206px)); }
+.sparkle--r { left: calc(100% - max(24px, calc(50% - 206px))); }
+@media (prefers-reduced-motion: reduce) { .sparkle { display: none; } }
+
+/* セクション見出し画像（head01〜07） */
+.sec-head {
+  width: 100%;
+  aspect-ratio: 4052 / 784;
+  object-fit: contain;
+  margin-bottom: 4px;
+}
+
+/* 写真（TryVII / オフィス） */
+.photo {
+  width: 100%;
+  aspect-ratio: 1290 / 832;
+  object-fit: cover;
+  border: 1px solid var(--blue);
+}
+.photo--blue { border-color: var(--blue); }
+.photo--pink { border-color: var(--pink); }
+
+/* キラッ */
+.spark {
+  width: 48px;
+  height: auto;
+  margin: 4px 0;
+}
+
+/* 本文コピー */
+.copy {
+  margin: 0;
+  font-size: 13px;
+  line-height: 31px;
+  text-align: center;
+  letter-spacing: 1.17px;
+  color: var(--navy);
+  word-break: break-word;
+}
+
+/* カード（メンバー / 監修） */
+.card {
+  width: 100%;
+  background: #fff;
+  border: 1px solid var(--blue);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: left;
+}
+.card--pink { border-color: var(--pink); min-height: 436px; }
+.card--blue { border-color: var(--blue); }
+.card__title { margin: 0; font-weight: 700; font-size: 15px; line-height: 24px; color: var(--navy); }
+.card__body  { margin: 0; font-weight: 400; font-size: 13px; line-height: 31px; color: var(--navy); }
+
+/* ===== PPP写真スライドショー（CRYSTAL流用・3枚クロスフェード）===== */
+.ppp-slideshow {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1290 / 832;
+  border: 1px solid var(--pink);
+  overflow: hidden;
+}
+.ppp-slideshow img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  animation: ppp-slide 18s infinite;
+}
+.ppp-slideshow img:nth-child(1) { animation-delay: 0s; }
+.ppp-slideshow img:nth-child(2) { animation-delay: -12s; }
+.ppp-slideshow img:nth-child(3) { animation-delay: -6s; }
+@keyframes ppp-slide {
+  0%, 27.78% { opacity: 1; }
+  33.33%, 94.44% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+/* ===== 所属クリエイター 横スクロール（CRYSTAL流用・無限マーキー）===== */
+.creators-strip { width: 100%; }
+.creators-strip__label {
+  margin: 0 0 8px;
+  color: var(--navy);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-align: left;
+}
+.creators-marquee {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 20px, #000 calc(100% - 20px), transparent 100%);
+          mask-image: linear-gradient(90deg, transparent 0, #000 20px, #000 calc(100% - 20px), transparent 100%);
+}
+.creators-track {
+  display: flex;
+  width: max-content;
+  animation: creators-scroll 32s linear infinite;
+}
+.creators-row {
+  display: flex;
+  gap: 10px;
+  margin: 0 10px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.creator-avatar {
+  width: 76px;
+  height: 76px;
+  border-radius: 12px;
+  object-fit: cover;
+  background: #eef6fd;
+  outline: 1px solid var(--blue);
+  outline-offset: -1px;
+}
+@keyframes creators-scroll {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(-50%, 0, 0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ppp-slideshow img { animation: none; }
+  .ppp-slideshow img:nth-child(1) { opacity: 1; }
+  .creators-track { animation: none; }
+}
+
+/* 5大サポート */
+.support-card {
+  width: 314px;
+  height: auto;
+  margin: 4px auto;
+}
+
+/* ===== 応募条件（ウィンドウ枠＋チェックリスト）===== */
+.reqs {
+  position: relative;
+  width: 343px;
+  max-width: 100%;
+  padding: 32px 32px 56px;
+}
+.reqs__window {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  z-index: 0;
+}
+.reqs__list {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.reqs__list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 12px;
+  line-height: 19px;
+  color: var(--ink);
+}
+.reqs__check {
+  width: 10px;
+  height: auto;
+  flex: 0 0 auto;
+  margin-top: 4px;
+}
+
+/* ===== 応募条件：封筒から手紙が出るスクロールギミック ===== */
+/* 列幅いっぱいに拡大。ジオメトリは%ベースでサイズ非依存。
+   進捗は --mail-p(0=収納 / 1=出きった) で制御 */
+.mail {
+  position: relative;
+  width: calc(100% + 48px);    /* 左右paddingを突き抜けて枠線まで＝大きく */
+  margin: 0 -24px;
+  max-width: none;
+  aspect-ratio: 300 / 420;     /* 幅に応じて高さがスケール */
+  overflow: hidden;            /* 封筒に収まっている手紙をクリップ */
+}
+.mail__box {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  width: 95%;
+  height: auto;
+  z-index: 1;                  /* 封筒は背面 */
+  pointer-events: none;
+}
+.mail__clip {                  /* 封筒の口(境目)で手紙をクリップ。手紙は前面 */
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 23%;                 /* この下端＝封筒の口（ここでクリップ）*/
+  overflow: hidden;
+  z-index: 2;
+}
+.mail__paper {                 /* クリップ枠の下端からスクロールでせり上がる手紙 */
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 86%;
+  transform: translateX(-50%) translateY(calc((1 - var(--mail-p, 0.8)) * 94%));
+  transition: transform .12s linear;
+}
+.mail__paper-img { width: 100%; height: auto; display: block; }
+/* 手紙の上に応募条件チェックリストを載せる */
+.mail .reqs__list {
+  position: absolute;
+  top: 13%;
+  left: 12%;
+  right: 10%;
+  margin: 0;
+  padding: 0;
+  gap: 11px;
+}
+.mail .reqs__list li { font-size: 12px; line-height: 17px; gap: 9px; }
+.mail .reqs__check { width: 11px; margin-top: 3px; }
+@media (prefers-reduced-motion: reduce) {
+  .mail__paper { transition: none; }
+}
+
+/* スケジュール帯 */
+.schedule {
+  position: relative;
+  display: block;
+  width: 100%;
+  max-width: 336px;
+  margin: 4px auto;
+  overflow: hidden;
+}
+.schedule__img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+/* 中央に来たとき：左上→右下に半透明の白帯がキランと横断 */
+.schedule::after {
+  content: "";
+  position: absolute;
+  top: -20%;
+  bottom: -20%;
+  left: -70%;
+  width: 45%;
+  background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,.65) 50%, rgba(255,255,255,0) 100%);
+  transform: skewX(-22deg);
+  opacity: 0;
+  pointer-events: none;
+}
+.schedule.is-shine::after {
+  animation: schedule-shine 1s cubic-bezier(.4, 0, .2, 1);
+}
+@keyframes schedule-shine {
+  0%   { left: -70%; opacity: 0; }
+  12%  { opacity: 1; }
+  88%  { opacity: 1; }
+  100% { left: 135%; opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .schedule.is-shine::after { animation: none; }
+}
+
+/* ===== 選考フロー ===== */
+.flow {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 8px;
+  width: 100%;
+}
+.flow-step {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  height: 62px;
+  background: #fff;
+  border: 1px solid var(--blue);
+  border-radius: 61px;
+  padding: 6px 14px 6px 6px;
+  overflow: hidden;
+}
+.flow-step--pink { border-color: var(--pink); }
+.flow-step__icon { width: 50px; height: 50px; flex: 0 0 auto; }
+.flow-step__text { display: flex; flex-direction: column; min-width: 0; }
+.flow-step__title { margin: 0; font-size: 16px; line-height: 21px; color: var(--navy); letter-spacing: 1.5px; }
+.flow-step__sub   { margin: 0; font-size: 12px; line-height: 19px; color: var(--blue); }
+.flow-step__title--final { color: var(--pink); text-align: center; width: 100%; letter-spacing: 2px; }
+
+.flow-arrow {
+  width: 0; height: 0;
+  align-self: center;
+  border-left: 11px solid transparent;
+  border-right: 11px solid transparent;
+  border-top: 13px solid var(--blue);
+}
+
+/* ===== 注意事項 ===== */
+.notes {
+  width: 342px;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.notes li {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 11px;
+  line-height: 18px;
+  color: var(--navy);
+}
+.notes__dot {
+  width: 7px; height: 7px;
+  flex: 0 0 auto;
+  margin-top: 4px;
+  border-radius: 50%;
+  background: var(--blue);
+}
+
+/* ===== FAQ ===== */
+.faq {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+.faq-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+.faq-row__badge { width: 93px; height: auto; flex: 0 0 auto; }
+.faq-row__q { margin: 0; font-weight: 700; font-size: 12px; line-height: 18px; color: var(--blue); letter-spacing: 2px; }
+.faq-row__a { margin: 0; font-weight: 400; font-size: 12px; line-height: 19px; color: var(--pink); }
+
+/* ===== フッター ===== */
+.footer {
+  background: var(--footer-bg);
+  text-align: center;
+  padding: 24px 24px 96px;
+}
+.footer__logo { margin: 0 0 4px; font-weight: 700; font-size: 24px; line-height: 38px; color: #fff; }
+.footer__meta { margin: 0; font-size: 10px; line-height: 16px; color: var(--cyan); }
+
+/* ===== 応募CTA（下部固定）===== */
+.floating-cta {
+  position: fixed;
+  left: 50%;
+  bottom: 16px;
+  transform: translateX(-50%);
+  width: calc(100% - 32px);
+  max-width: calc(var(--col) - 32px);
+  z-index: 50;
+  display: block;
+  padding: 16px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--pink), var(--blue));
+  color: #fff;
+  font-weight: 700;
+  font-size: 16px;
+  letter-spacing: 1px;
+  text-align: center;
+  text-decoration: none;
+  box-shadow: 0 8px 24px rgba(247, 113, 199, .35);
+}
+.floating-cta:active { transform: translateX(-50%) scale(.98); }
+
+/* ===== スクロール出現アニメ（複数パターン）===== */
+:root { --rv-ease: cubic-bezier(.22, .61, .36, 1); --rv-dur: .8s; }
+
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity var(--rv-dur) var(--rv-ease),
+              transform var(--rv-dur) var(--rv-ease),
+              filter var(--rv-dur) var(--rv-ease);
+  will-change: opacity, transform;
+}
+.reveal.is-visible { opacity: 1; transform: none; filter: none; }
+
+/* 方向・種類のバリエーション（初期transform/filterを上書き）*/
+.reveal--left  { transform: translateX(-36px); }
+.reveal--right { transform: translateX(36px); }
+.reveal--zoom  { transform: scale(.9); }
+.reveal--blur  { filter: blur(12px); transform: translateY(18px); }
+.reveal--up-lg { transform: translateY(56px); }
+
+/* 画像のワイプ表示（上→下にクリップで現れる）*/
+.reveal--clip {
+  opacity: 1;
+  transform: none;
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path 1s var(--rv-ease);
+}
+.reveal--clip.is-visible { clip-path: inset(0 0 0 0); }
+
+/* スタッガー：子要素が順番に出現 */
+.stagger > * {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity .6s var(--rv-ease), transform .6s var(--rv-ease);
+}
+.stagger.is-visible > * { opacity: 1; transform: none; }
+.stagger.is-visible > *:nth-child(1)  { transition-delay: .04s; }
+.stagger.is-visible > *:nth-child(2)  { transition-delay: .10s; }
+.stagger.is-visible > *:nth-child(3)  { transition-delay: .16s; }
+.stagger.is-visible > *:nth-child(4)  { transition-delay: .22s; }
+.stagger.is-visible > *:nth-child(5)  { transition-delay: .28s; }
+.stagger.is-visible > *:nth-child(6)  { transition-delay: .34s; }
+.stagger.is-visible > *:nth-child(7)  { transition-delay: .40s; }
+.stagger.is-visible > *:nth-child(8)  { transition-delay: .46s; }
+.stagger.is-visible > *:nth-child(9)  { transition-delay: .52s; }
+.stagger.is-visible > *:nth-child(n+10) { transition-delay: .58s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal, .stagger > * {
+    opacity: 1 !important; transform: none !important;
+    filter: none !important; clip-path: none !important; transition: none !important;
+  }
+}
