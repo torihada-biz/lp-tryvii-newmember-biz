@@ -9,9 +9,26 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./styles.css?v=40">
+    <link rel="stylesheet" href="./styles.css?v=41">
   </head>
   <body>
+    <!-- 目次＋CTA（デスクトップ）：左の余白に固定表示。モバイルでは非表示 -->
+    <aside class="side-panel side-panel-left" aria-label="ページナビゲーション">
+      <div class="side-inner">
+        <p class="side-title">TryVII<span>新メンバーオーディション</span></p>
+        <nav class="side-nav" aria-label="目次">
+          <a href="#about">『TryVII』とは？</a>
+          <a href="#ppp">PPP STUDIO</a>
+          <a href="#support">安心の5大サポート</a>
+          <a href="#reqs">応募条件</a>
+          <a href="#flow">選考フロー</a>
+          <a href="#notes">注意事項</a>
+          <a href="#faq">よくあるご質問</a>
+        </nav>
+        <a class="side-cta js-entry-link" href="#" rel="noopener">LINEで今すぐ応募する</a>
+      </div>
+    </aside>
+
     <main class="lp">
 
       <!-- SECTION 01 / メインビジュアル（ファーストビュー） -->
@@ -41,7 +58,7 @@
         </div>
 
         <!-- ▼ ABOUT / 『TryVII』とは -->
-        <section class="sec" data-sub="0" aria-label="『TryVII』とは？">
+        <section id="about" class="sec" data-sub="0" aria-label="『TryVII』とは？">
           <img class="sec-head" src="./asset/head01.png" alt="『TryVII』とは？">
           <img class="photo photo--blue reveal reveal--zoom" src="./asset/TryVII-photo.webp" alt="TryVII メンバー">
           <img class="spark" src="./asset/spark.png" alt="">
@@ -68,7 +85,7 @@
         </section>
 
         <!-- ▼ AGENCY / 所属事務所 PPP STUDIO -->
-        <section class="sec" data-sub="1" aria-label="所属事務所：PPP STUDIO株式会社">
+        <section id="ppp" class="sec" data-sub="1" aria-label="所属事務所：PPP STUDIO株式会社">
           <img class="sec-head" src="./asset/head02.png" alt="所属事務所：PPP STUDIO株式会社">
           <div class="ppp-slideshow reveal" role="img" aria-label="PPP STUDIO オフィス・配信スタジオ">
             <img src="./asset/ppp-photo.webp" alt="" loading="lazy">
@@ -120,13 +137,13 @@
         </section>
 
         <!-- ▼ SUPPORT / 安心の5大サポート -->
-        <section class="sec" data-sub="2" aria-label="安心の5大サポート">
+        <section id="support" class="sec" data-sub="2" aria-label="安心の5大サポート">
           <img class="sec-head" src="./asset/head03.png" alt="安心の5大サポート">
           <img class="support-card reveal reveal--blur" src="./asset/support-card.png" alt="安心の5大サポート：1.専属所属 2.固定給あり 3.活動費用￥0 4.学業・仕事との両立OK 5.専属マネジメント">
         </section>
 
         <!-- ▼ REQS / 応募条件 -->
-        <section class="sec" data-sub="3" aria-label="応募条件">
+        <section id="reqs" class="sec" data-sub="3" aria-label="応募条件">
           <img class="sec-head" src="./asset/head04.png" alt="応募条件">
           <!-- 封筒から手紙(応募条件)がスクロールで出てくるギミック -->
           <div class="mail">
@@ -148,7 +165,7 @@
         </section>
 
         <!-- ▼ FLOW / 選考フロー -->
-        <section class="sec" data-sub="4" aria-label="選考フロー">
+        <section id="flow" class="sec" data-sub="4" aria-label="選考フロー">
           <img class="sec-head" src="./asset/head05.png" alt="選考フロー">
           <span class="schedule reveal reveal--zoom">
             <img class="schedule__img" src="./asset/schedule.png" alt="応募期間 6.12 - 7.20">
@@ -196,7 +213,7 @@
         </section>
 
         <!-- ▼ NOTES / 応募への注意事項 -->
-        <section class="sec" data-sub="5" aria-label="応募への注意事項">
+        <section id="notes" class="sec" data-sub="5" aria-label="応募への注意事項">
           <img class="sec-head" src="./asset/head06.png" alt="応募への注意事項">
           <ul class="notes stagger">
             <li><span class="notes__dot"></span>今回のオーディション応募による審査費用は、一切発生しません。</li>
@@ -209,7 +226,7 @@
         </section>
 
         <!-- ▼ FAQ / よくあるご質問 -->
-        <section class="sec" data-sub="6" aria-label="よくあるご質問">
+        <section id="faq" class="sec" data-sub="6" aria-label="よくあるご質問">
           <img class="sec-head" src="./asset/head07.png" alt="よくあるご質問">
           <div class="faq stagger">
             <div class="faq-row">
@@ -255,6 +272,6 @@
     <!-- 応募CTA（モバイル下部固定）：LINE URLは要差し替え -->
     <a class="floating-cta js-entry-link" href="#" rel="noopener">LINEで今すぐ応募する</a>
 
-    <script src="./script.js?v=40"></script>
+    <script src="./script.js?v=41"></script>
   </body>
 </html>

@@ -13,7 +13,7 @@
 
 * { box-sizing: border-box; }
 
-html { -webkit-text-size-adjust: 100%; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
 
 body {
   margin: 0;
@@ -390,7 +390,7 @@ img { display: block; max-width: 100%; }
   right: 10%;
   margin: 0;
   padding: 0;
-  gap: 11px;
+  gap: 16px;
 }
 .mail .reqs__list li { font-size: 12px; line-height: 17px; gap: 9px; }
 .mail .reqs__check { width: 11px; margin-top: 3px; }
@@ -601,4 +601,96 @@ img { display: block; max-width: 100%; }
     opacity: 1 !important; transform: none !important;
     filter: none !important; clip-path: none !important; transition: none !important;
   }
+}
+
+/* ===== 目次＋CTA（デスクトップ左サイドパネル）=====
+   モバイル: .floating-cta を下部固定 / デスクトップ(≥960px): 左余白に目次＋CTAを固定し floating-cta は隠す */
+.side-panel { display: none; }
+
+@media (min-width: 960px) {
+  /* 左余白いっぱい（コンテンツ列412pxの左側）に目次＋CTAを中央寄せ固定 */
+  .side-panel-left {
+    display: flex;
+    position: fixed;
+    z-index: 60;
+    left: 0;
+    top: 0;
+    width: calc((100vw - var(--col)) / 2);
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+    padding: 0 24px;
+    color: var(--navy);
+  }
+  .side-inner { width: min(100%, 320px); }
+
+  .side-title {
+    margin: 0 0 26px;
+    font-weight: 700;
+    font-size: 26px;
+    letter-spacing: .06em;
+    line-height: 1.2;
+    color: var(--navy);
+  }
+  .side-title span {
+    display: block;
+    margin-top: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: .14em;
+    color: var(--pink);
+  }
+
+  .side-nav {
+    display: grid;
+    counter-reset: side-menu;
+    border-top: 1px solid rgba(22, 46, 89, .18);
+  }
+  .side-nav a {
+    counter-increment: side-menu;
+    display: grid;
+    grid-template-columns: 38px 1fr;
+    align-items: center;
+    min-height: 50px;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(22, 46, 89, .14);
+    color: var(--navy);
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.35;
+    text-decoration: none;
+    transition: color .2s ease, padding-left .2s ease;
+  }
+  .side-nav a::before {
+    content: counter(side-menu, decimal-leading-zero);
+    color: var(--pink);
+    font-family: "Times New Roman", serif;
+    font-size: 16px;
+    font-weight: 400;
+    letter-spacing: .04em;
+  }
+  .side-nav a:hover {
+    color: var(--pink);
+    padding-left: 4px;
+  }
+
+  .side-cta {
+    display: block;
+    width: 100%;
+    margin-top: 28px;
+    padding: 17px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--pink), var(--blue));
+    color: #fff;
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: 1px;
+    text-align: center;
+    text-decoration: none;
+    box-shadow: 0 8px 24px rgba(247, 113, 199, .35);
+  }
+  .side-cta:active { transform: scale(.98); }
+
+  /* デスクトップでは下部固定CTAを隠す */
+  .floating-cta { display: none; }
 }
