@@ -545,14 +545,14 @@ img { display: block; max-width: 100%; }
   display: block;
   padding: 18px 16px;
   border-radius: 999px;
-  background: #db6cb1;            /* ベタピンク */
+  background: #f771c7;
   color: #fff;
   font-weight: 700;
   font-size: 17px;
-  letter-spacing: 1px;
+  letter-spacing: 3px;
   text-align: center;
   text-decoration: none;
-  box-shadow: 5px 8px 0 0 #b9568f; /* 右下にずれた濃ピンクの影 */
+  box-shadow: 0px 4px 0 0 #f771c7;
   transition: transform .12s ease, box-shadow .12s ease;
 }
 /* 内側に少し余白を空けた白い枠線 */
@@ -560,14 +560,14 @@ img { display: block; max-width: 100%; }
 .side-cta::before {
   content: "";
   position: absolute;
-  inset: 7px;
+  inset: 2px;
   border: 2px solid #fff;
   border-radius: 999px;
   pointer-events: none;
 }
 /* 押し込み：影を縮めて少し沈ませる */
-.floating-cta:active { transform: translateX(-50%) translate(2px, 3px); box-shadow: 2px 3px 0 0 #b9568f; }
-.side-cta:active     { transform: translate(2px, 3px); box-shadow: 2px 3px 0 0 #b9568f; }
+.floating-cta:active { transform: translateX(-50%) translateY(3px); box-shadow: 0 1px 0 0 #f771c7; }
+.side-cta:active     { transform: translateY(3px); box-shadow: 0 1px 0 0 #f771c7; }
 
 /* ===== スクロール出現アニメ（複数パターン）===== */
 :root { --rv-ease: cubic-bezier(.22, .61, .36, 1); --rv-dur: .8s; }
