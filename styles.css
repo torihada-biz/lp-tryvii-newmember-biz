@@ -372,7 +372,7 @@ img { display: block; max-width: 100%; }
 }
 /* キャプション位置の微調整 */
 .point__cap[src*="point-2.webp"] { transform: translateX(-4px); }  /* 左へ4px */
-.point__cap[src*="point-3.webp"] { transform: translateX(4px); }   /* 右へ4px */
+.point__cap[src*="point-3.webp"] { transform: translateX(8px); }   /* 右へ8px */
 
 /* ===== アドトラック予告 ===== */
 .adtruck {
