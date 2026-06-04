@@ -459,7 +459,10 @@ img { display: block; max-width: 100%; }
 }
 
 /* ===== 所属クリエイター 横スクロール（CRYSTAL流用・無限マーキー）===== */
-.creators-strip { width: 100%; }
+.creators-strip {
+  width: 100%;
+  margin-top: 8px;
+}
 .creators-strip__label {
   margin: 0 0 8px;
   color: var(--navy);
