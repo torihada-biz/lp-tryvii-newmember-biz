@@ -370,6 +370,9 @@ img { display: block; max-width: 100%; }
   max-width: 50%;
   height: auto;
 }
+/* キャプション位置の微調整 */
+.point__cap[src*="point-2.webp"] { transform: translateX(-4px); }  /* 左へ4px */
+.point__cap[src*="point-3.webp"] { transform: translateX(4px); }   /* 右へ4px */
 
 /* ===== アドトラック予告 ===== */
 .adtruck {
