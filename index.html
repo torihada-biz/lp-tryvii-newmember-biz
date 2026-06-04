@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./styles.css?v=47">
+    <link rel="stylesheet" href="./styles.css?v=65">
   </head>
   <body>
     <!-- 目次＋CTA（デスクトップ）：左の余白に固定表示。モバイルでは非表示 -->
@@ -58,29 +58,53 @@
         </div>
 
         <!-- ▼ ABOUT / 『TryVII』とは -->
-        <section id="about" class="sec" data-sub="0" aria-label="『TryVII』とは？">
+        <section id="about" class="sec sec--about" data-sub="0" aria-label="『TryVII』とは？">
           <img class="sec-head" src="./asset/head01.webp" alt="『TryVII』とは？">
+
           <img class="photo photo--blue reveal reveal--zoom" src="./asset/TryVII-photo.webp" alt="TryVII メンバー">
           <img class="spark" src="./asset/spark.webp" alt="">
-          <p class="copy reveal">
+
+          <p class="about-lead reveal">
             TikTok LIVE配信オーディションから生まれた<br>
-            PPP STUDIO第一弾の次世代SNSアイドルグループ。<br>
-            アイドルメンバー未経験ながらも<br>
-            新宿ReNYでのデビューライブは満員御礼！<br>
-            デビュー１ヶ月で北陸最大級アイドルフェス<br>
-            「かがやきフェス2025」では出演権争奪戦で<br>
-            優勝し、メインステージでパフォーマンスを披露。<br>
-            本年GWに開催された「IDOL SUMMER JUNGLE GOLDEN」企画でも優勝し、<br>
-            本年夏に開催される「IDOL SUMMER JUNGLE」でメインステージでのパフォーマンス権利を獲得。<br>
-            この夏アドトラックも走行予定！
+            PPP STUDIO第一弾の<br>
+            次世代SNSアイドルグループ！
           </p>
-          <div class="card card--pink reveal reveal--left">
-            <p class="card__title">メンバー名</p>
-            <p class="card__body">応援メッセージ</p>
+
+          <div class="point-list">
+            <!-- 実績1：写真左・キャプション右（上部の装飾ラインは右） -->
+            <img class="decoline decoline--r reveal reveal--right" src="./asset/decoline-r.webp" alt="" aria-hidden="true">
+            <div class="point point--ltr reveal reveal--left">
+              <div class="point__photo">
+                <img class="point__img" src="./asset/point-img1.webp" alt="新宿ReNYでのデビューライブ">
+              </div>
+              <img class="point__cap" src="./asset/point-1.webp" alt="デビューライブ 未経験ながら満員御礼！">
+            </div>
+
+            <!-- 実績2：キャプション左・写真右（上部の装飾ラインは左） -->
+            <img class="decoline decoline--l reveal reveal--left" src="./asset/decoline-l.webp" alt="" aria-hidden="true">
+            <div class="point point--rtl reveal reveal--right">
+              <div class="point__photo">
+                <img class="point__img" src="./asset/point-img2.webp" alt="かがやきフェス2025 出場権争奪戦">
+              </div>
+              <img class="point__cap" src="./asset/point-2.webp" alt="「かがやきフェス2025」出場権争奪戦で優勝！">
+            </div>
+
+            <!-- 実績3：写真左・キャプション右（上部の装飾ラインは右） -->
+            <img class="decoline decoline--r reveal reveal--right" src="./asset/decoline-r.webp" alt="" aria-hidden="true">
+            <div class="point point--ltr reveal reveal--left">
+              <div class="point__photo">
+                <img class="point__img" src="./asset/point-img3.webp" alt="IDOL SUMMER JUNGLE">
+              </div>
+              <img class="point__cap" src="./asset/point-3.webp" alt="IDOL SUMMER JUNGLE パフォーマンス権獲得！">
+            </div>
           </div>
-          <div class="card card--blue reveal reveal--right">
-            <p class="card__title">監修：ginjiro</p>
-            <p class="card__body">SNS総フォロワー数800万人以上！「日本一有名な背中」や＃背中男で有名なginjiroが監修！</p>
+
+          <!-- アドトラック予告（トラックは常時左右に走行＋フェード） -->
+          <div class="adtruck reveal">
+            <div class="adtruck__road">
+              <img class="adtruck__truck" src="./asset/truck.webp" alt="" aria-hidden="true">
+            </div>
+            <img class="adtruck__banner" src="./asset/truck-road.webp" alt="今夏 アドトラックも走行予定！">
           </div>
         </section>
 
@@ -93,16 +117,18 @@
             <img src="./asset/ppp-photo-studio.webp" alt="" loading="lazy">
           </div>
           <img class="spark" src="./asset/spark.webp" alt="">
-          <p class="copy reveal">
-            所属事務所は<br>
-            日本最大級のTikTokクリエイター事務所、<br>
-            PPP STUDIO株式会社。<br>
-            企業タイアップ案件や広告出演のチャンスが<br>
-            あるほか、有名クリエイターともコラボ可能。<br>
-            SNS運用のプロ集団による個別バズプロデュース、<br>
-            自社ダンススタジオ・配信ルームなども完備。<br>
-            セカンドキャリア（卒業後の就職）もサポート！
-          </p>
+          <div class="ppp-about">
+            <p class="ppp-about__lead reveal">日本最大級のTikTokクリエイター事務所</p>
+            <img class="ppp-about__logo reveal reveal--zoom-out" src="./asset/ppp-logo-corp.webp" alt="PPP STUDIO — Let you spark up">
+            <p class="ppp-about__belong reveal">所属！</p>
+            <ul class="ppp-feats stagger">
+              <li class="ppp-feat"><span>企業タイアップ案件や広告出演のチャンス</span></li>
+              <li class="ppp-feat"><span>有名クリエイターとコラボ可能</span></li>
+              <li class="ppp-feat"><span>SNS運用のプロ集団による個別バズプロデュース</span></li>
+              <li class="ppp-feat"><span>自社ダンススタジオ・配信ルーム完備</span></li>
+              <li class="ppp-feat"><span>セカンドキャリア（卒業後の就職）サポート</span></li>
+            </ul>
+          </div>
           <div class="creators-strip reveal" aria-label="所属クリエイター">
             <p class="creators-strip__label">所属クリエイター</p>
             <div class="creators-marquee">
