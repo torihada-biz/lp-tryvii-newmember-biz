@@ -9,9 +9,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./styles.css?v=68">
+    <link rel="stylesheet" href="./styles.css?v=106">
   </head>
   <body>
+    <!-- スプラッシュ：白全画面オーバーレイ（フェードアウトして動画が見える） -->
+    <div class="splash" aria-hidden="true"></div>
+
     <!-- 目次＋CTA（デスクトップ）：左の余白に固定表示。モバイルでは非表示 -->
     <aside class="side-panel side-panel-left" aria-label="ページナビゲーション">
       <div class="side-inner">
@@ -21,20 +24,29 @@
           <a href="#ppp">所属事務所</a>
           <a href="#support">安心の5大サポート</a>
           <a href="#reqs">応募条件</a>
+          <a href="#howto">応募方法</a>
           <a href="#flow">選考フロー</a>
           <a href="#notes">注意事項</a>
           <a href="#faq">よくあるご質問</a>
         </nav>
-        <a class="side-cta js-entry-link" href="#" rel="noopener">LINEで今すぐ応募する</a>
+        <a class="side-cta js-entry-link" href="https://lin.ee/UYaxWzP" rel="noopener">LINEで今すぐ応募する</a>
       </div>
     </aside>
 
     <main class="lp">
 
       <!-- SECTION 01 / メインビジュアル（ファーストビュー） -->
+      <!-- 動画(asset/hero.mp4)を置くと自動でループ再生。未配置／再生不可なら hero.webp を表示 -->
       <section class="hero" aria-label="メインビジュアル">
         <h1 class="visually-hidden">TryVII 新メンバーオーディション</h1>
         <img class="hero__img" src="./asset/hero.webp" alt="TryVII ライブパフォーマンス">
+        <video class="hero__video" autoplay muted loop playsinline preload="auto" poster="./asset/hero.webp">
+          <source src="./asset/hero.webm?v=3" type="video/webm">
+          <source src="./asset/hero.mp4?v=3" type="video/mp4">
+        </video>
+        <img class="hero__frame" src="./asset/topview-frame.webp" alt="" aria-hidden="true">
+        <img class="hero__presents" src="./asset/ppp-presents.webp" alt="PPP STUDIO presents">
+        <img class="hero__logo" src="./asset/logo.webp" alt="『TryVII』新メンバーオーディション NEW MEMBER AUDITION">
       </section>
 
       <!-- 本文（白背景）／左右枠線つき -->
@@ -54,6 +66,7 @@
             <div class="subhead-cell"><img src="./asset/subhead05.webp" alt=""></div>
             <div class="subhead-cell"><img src="./asset/subhead06.webp" alt=""></div>
             <div class="subhead-cell"><img src="./asset/subhead07.webp" alt=""></div>
+            <div class="subhead-cell"><img src="./asset/subhead08.webp" alt=""></div>
           </div>
         </div>
 
@@ -70,32 +83,28 @@
             次世代SNSアイドルグループ！
           </p>
 
-          <div class="point-list">
-            <!-- 実績1：写真左・キャプション右（上部の装飾ラインは右） -->
-            <img class="decoline decoline--r reveal reveal--right" src="./asset/decoline-r.webp" alt="" aria-hidden="true">
-            <div class="point point--ltr reveal reveal--left">
-              <div class="point__photo">
-                <img class="point__img" src="./asset/point-img1.webp" alt="新宿ReNYでのデビューライブ">
-              </div>
-              <img class="point__cap" src="./asset/point-1.webp" alt="デビューライブ 未経験ながら満員御礼！">
-            </div>
+          <!-- 公式SNS（説明の下） -->
+          <div class="official-sns reveal" aria-label="TryVII 公式SNS">
+            <a class="sns" href="https://x.com/TryVII_official" target="_blank" rel="noopener" aria-label="TryVII公式 X"><img src="./asset/sns-x.webp" alt="X"></a>
+            <a class="sns" href="https://www.tiktok.com/@tryvii_official" target="_blank" rel="noopener" aria-label="TryVII公式 TikTok"><img src="./asset/sns-tiktok.webp" alt="TikTok"></a>
+          </div>
 
-            <!-- 実績2：キャプション左・写真右（上部の装飾ラインは左） -->
-            <img class="decoline decoline--l reveal reveal--left" src="./asset/decoline-l.webp" alt="" aria-hidden="true">
-            <div class="point point--rtl reveal reveal--right">
-              <div class="point__photo">
-                <img class="point__img" src="./asset/point-img2.webp" alt="かがやきフェス2025 出場権争奪戦">
-              </div>
-              <img class="point__cap" src="./asset/point-2.webp" alt="「かがやきフェス2025」出場権争奪戦で優勝！">
+          <!-- 実績ポイント（Image#4：上=実績1/2、下=写真＋実績3、✦スパークル散らし） -->
+          <div class="ach reveal">
+            <div class="ach-divider" aria-hidden="true">
+              <img src="./asset/decoline-l.webp" alt="">
+              <img src="./asset/decoline-r.webp" alt="">
             </div>
-
-            <!-- 実績3：写真左・キャプション右（上部の装飾ラインは右） -->
-            <img class="decoline decoline--r reveal reveal--right" src="./asset/decoline-r.webp" alt="" aria-hidden="true">
-            <div class="point point--ltr reveal reveal--left">
-              <div class="point__photo">
-                <img class="point__img" src="./asset/point-img3.webp" alt="IDOL SUMMER JUNGLE">
+            <div class="ach__grid">
+              <img class="ach-cap" src="./asset/point-1.webp" alt="デビューライブ 未経験ながら満員御礼！">
+              <img class="ach-cap" src="./asset/point-2.webp" alt="「かがやきフェス2025」出場権争奪戦で優勝！">
+              <div class="ach-photo">
+                <img class="ach-photo__img" src="./asset/point-img3.webp" alt="IDOL SUMMER JUNGLE パフォーマンス">
               </div>
-              <img class="point__cap" src="./asset/point-3.webp" alt="IDOL SUMMER JUNGLE パフォーマンス権獲得！">
+              <div class="ach-cap3">
+                <img class="ach-cap3__line" src="./asset/decoline-l.webp" alt="" aria-hidden="true">
+                <img class="ach-cap ach-cap--3" src="./asset/point-3.webp" alt="IDOL SUMMER JUNGLE パフォーマンス権獲得！">
+              </div>
             </div>
           </div>
 
@@ -106,7 +115,139 @@
             </div>
             <img class="adtruck__banner" src="./asset/truck-road.webp" alt="今夏 アドトラックも走行予定！">
           </div>
+
+          <!-- ▼ メンバー紹介カルーセル（左右ボタン／ドット／スワイプでスライド） -->
+          <img class="section-label reveal" src="./asset/label-producer.webp" alt="MEMBER">
+          <div class="members reveal" aria-roledescription="カルーセル" aria-label="TryVII メンバー紹介">
+            <div class="members__dots" aria-label="メンバー選択"></div>
+            <div class="members__viewport">
+              <div class="members__track">
+                <!-- MEMBER 1 -->
+                <div class="member-slide">
+                  <div class="member-slide__figure">
+                    <img class="member-slide__photo" src="./asset/member-1.webp" alt="TryVII メンバー：佐々木梨華" loading="lazy">
+                    <div class="member-slide__sns">
+                      <a class="sns" href="https://x.com/TryVII_Rika" target="_blank" rel="noopener" aria-label="X"><img src="./asset/sns-x.webp" alt="X"></a>
+                      <a class="sns" href="https://www.tiktok.com/@a______y03" target="_blank" rel="noopener" aria-label="TikTok"><img src="./asset/sns-tiktok.webp" alt="TikTok"></a>
+                    </div>
+                  </div>
+                  <div class="member-slide__comment">
+                    <img class="member-slide__bubble" src="./asset/membercomment-1.webp" alt="" aria-hidden="true">
+                    <p class="member-slide__text">アイドルが好きな方、夢に向かって頑張りたい方と出会えたら嬉しいです。一緒に成長しながら『TryVII』でたくさんの景色を見に行きましょう！あなたの挑戦を待っています！</p>
+                  </div>
+                </div>
+                <!-- MEMBER 2 -->
+                <div class="member-slide">
+                  <div class="member-slide__figure">
+                    <img class="member-slide__photo" src="./asset/member-2.webp" alt="TryVII メンバー：星咲のんの" loading="lazy">
+                    <div class="member-slide__sns">
+                      <a class="sns" href="https://x.com/TryVII_Nonno" target="_blank" rel="noopener" aria-label="X"><img src="./asset/sns-x.webp" alt="X"></a>
+                      <a class="sns" href="https://www.tiktok.com/@nonno.0701" target="_blank" rel="noopener" aria-label="TikTok"><img src="./asset/sns-tiktok.webp" alt="TikTok"></a>
+                    </div>
+                  </div>
+                  <div class="member-slide__comment">
+                    <img class="member-slide__bubble" src="./asset/membercomment-2.webp" alt="" aria-hidden="true">
+                    <p class="member-slide__text">私たちはまだ夢の途中です。だからこそ、同じ方向を向いて一緒に歩んでくれる仲間を探しています。あなたと一緒に、まだ見たことのない景色を見られる日を楽しみにしています。</p>
+                  </div>
+                </div>
+                <!-- MEMBER 3 -->
+                <div class="member-slide">
+                  <div class="member-slide__figure">
+                    <img class="member-slide__photo" src="./asset/member-3.webp" alt="TryVII メンバー：桜叶さら" loading="lazy">
+                    <div class="member-slide__sns">
+                      <a class="sns" href="https://x.com/TryVII_Sara" target="_blank" rel="noopener" aria-label="X"><img src="./asset/sns-x.webp" alt="X"></a>
+                      <a class="sns" href="https://www.tiktok.com/@s024ra" target="_blank" rel="noopener" aria-label="TikTok"><img src="./asset/sns-tiktok.webp" alt="TikTok"></a>
+                    </div>
+                  </div>
+                  <div class="member-slide__comment">
+                    <img class="member-slide__bubble" src="./asset/membercomment-3.webp" alt="" aria-hidden="true">
+                    <p class="member-slide__text">私は人生ではじめてのアイドル活動を『TryVII』で始められて本当によかったと思っています。支え合いながら一緒に成長し、夢に向かって全力で走れる環境があります。私たちと一緒に最高の景色を目指してくれる方の応募をお待ちしています！</p>
+                  </div>
+                </div>
+                <!-- MEMBER 4 -->
+                <div class="member-slide">
+                  <div class="member-slide__figure">
+                    <img class="member-slide__photo" src="./asset/member-4.webp" alt="TryVII メンバー：楠つきみ" loading="lazy">
+                    <div class="member-slide__sns">
+                      <a class="sns" href="https://x.com/TryVII_Tsukimi" target="_blank" rel="noopener" aria-label="X"><img src="./asset/sns-x.webp" alt="X"></a>
+                      <a class="sns" href="https://www.tiktok.com/@tamaconnyapi" target="_blank" rel="noopener" aria-label="TikTok"><img src="./asset/sns-tiktok.webp" alt="TikTok"></a>
+                    </div>
+                  </div>
+                  <div class="member-slide__comment">
+                    <img class="member-slide__bubble" src="./asset/membercomment-4.webp" alt="" aria-hidden="true">
+                    <p class="member-slide__text">ぼくたちだけじゃなく、スタッフも応援してくれてる方も、みんな本気で夢を追いかけています。ぼくたちはまだ何者でもないけれど、だからこそ誰よりも大きな夢を信じて走り続けています。ぼくたちと一緒にステージで輝きましょう！</p>
+                  </div>
+                </div>
+                <!-- MEMBER 5 -->
+                <div class="member-slide">
+                  <div class="member-slide__figure">
+                    <img class="member-slide__photo" src="./asset/member-5.webp" alt="TryVII メンバー：成宮るる" loading="lazy">
+                    <div class="member-slide__sns">
+                      <a class="sns" href="https://x.com/TryVII_Ruru" target="_blank" rel="noopener" aria-label="X"><img src="./asset/sns-x.webp" alt="X"></a>
+                      <a class="sns" href="https://www.tiktok.com/@r.r.r.r.r.r.n" target="_blank" rel="noopener" aria-label="TikTok"><img src="./asset/sns-tiktok.webp" alt="TikTok"></a>
+                    </div>
+                  </div>
+                  <div class="member-slide__comment">
+                    <img class="member-slide__bubble" src="./asset/membercomment-5.webp" alt="" aria-hidden="true">
+                    <p class="member-slide__text">私たちと一緒にもっと大きな夢に向かって歩んでいきませんか？自分が輝ける場所はここにあります。挑戦を諦めず一緒にステージで最高の景色を見ましょう！</p>
+                  </div>
+                </div>
+                <!-- MEMBER 6 -->
+                <div class="member-slide">
+                  <div class="member-slide__figure">
+                    <img class="member-slide__photo" src="./asset/member-6.webp" alt="TryVII メンバー：古山菜々美" loading="lazy">
+                    <div class="member-slide__sns">
+                      <a class="sns" href="https://x.com/TryVII_Nanami" target="_blank" rel="noopener" aria-label="X"><img src="./asset/sns-x.webp" alt="X"></a>
+                      <a class="sns" href="https://www.tiktok.com/@nanacon.26" target="_blank" rel="noopener" aria-label="TikTok"><img src="./asset/sns-tiktok.webp" alt="TikTok"></a>
+                    </div>
+                  </div>
+                  <div class="member-slide__comment">
+                    <img class="member-slide__bubble" src="./asset/membercomment-6.webp" alt="" aria-hidden="true">
+                    <p class="member-slide__text">1番大切なのは、「本気で挑戦したい」という気持ちです。同じ熱量で夢を追いかけてくれる仲間との出会いを楽しみにしています。</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button class="members__nav members__nav--prev" type="button" aria-label="前のメンバー"></button>
+            <button class="members__nav members__nav--next" type="button" aria-label="次のメンバー"></button>
+          </div>
+
+          <!-- ginjiro（コラボクリエイター）紹介 -->
+          <img class="section-label reveal" src="./asset/label-member.webp" alt="PRODUCER">
+          <div class="ginjiro reveal">
+            <img class="ginjiro__photo" src="./asset/ginjiro.webp" alt="ginjiro（小山ginjiro）">
+            <p class="ginjiro__name">ginjiro</p>
+            <p class="ginjiro__desc">15歳からHIPHOPを学び、その後Jazzダンスやバレエを学ぶ。アクロバティックなダンスを得意とする。ダンサーとして舞台出演などの活動をする傍ら「日本一有名な背中」や「#背中男」として様々なアーティストと世界的にコラボしているクリエイターで、SNS総フォロワー数は850万人（2026年6月現在）。</p>
+            <div class="ginjiro__sns">
+              <a class="sns" href="https://www.tiktok.com/@ginjiro_koyama" target="_blank" rel="noopener" aria-label="ginjiro TikTok"><img src="./asset/sns-tiktok.webp" alt="TikTok"></a>
+              <a class="sns" href="https://www.instagram.com/koyamaginjiro" target="_blank" rel="noopener" aria-label="ginjiro Instagram"><img src="./asset/sns-instagram.webp" alt="Instagram"></a>
+            </div>
+          </div>
         </section>
+
+        <!-- 写真マーキー（さりげない自動横スクロール） -->
+        <div class="photostrip" aria-label="TryVII フォト">
+          <div class="photostrip__track">
+            <div class="photostrip__row">
+              <img src="./asset/photo-1.webp" alt="" loading="lazy">
+              <img src="./asset/photo-2.webp" alt="" loading="lazy">
+              <img src="./asset/photo-3.webp?v=3" alt="" loading="lazy">
+              <img src="./asset/photo-4.webp" alt="" loading="lazy">
+              <img src="./asset/photo-5.webp" alt="" loading="lazy">
+              <img src="./asset/photo-6.webp" alt="" loading="lazy">
+              <img src="./asset/photo-7.webp" alt="" loading="lazy">
+            </div>
+            <div class="photostrip__row" aria-hidden="true">
+              <img src="./asset/photo-1.webp" alt="" loading="lazy">
+              <img src="./asset/photo-2.webp" alt="" loading="lazy">
+              <img src="./asset/photo-3.webp?v=3" alt="" loading="lazy">
+              <img src="./asset/photo-4.webp" alt="" loading="lazy">
+              <img src="./asset/photo-5.webp" alt="" loading="lazy">
+              <img src="./asset/photo-6.webp" alt="" loading="lazy">
+              <img src="./asset/photo-7.webp" alt="" loading="lazy">
+            </div>
+          </div>
+        </div>
 
         <!-- ▼ AGENCY / 所属事務所 PPP STUDIO -->
         <section id="ppp" class="sec" data-sub="1" aria-label="所属事務所：PPP STUDIO株式会社">
@@ -190,9 +331,41 @@
           </div>
         </section>
 
+        <!-- ▼ HOWTO / 応募方法：見出し・写真枠・ダイヤは固定、写真とラベルだけ横送り -->
+        <section id="howto" class="sec sec--howto" data-sub="4" aria-label="応募方法">
+          <div class="howto-pin">
+            <div class="howto-stage">
+              <!-- 固定：見出し -->
+              <img class="sec-head howto-head" src="./asset/head05.webp" alt="応募方法">
+              <!-- 固定：2重フレーム（ピンク左上＋水色右下）。中の写真だけが横送り -->
+              <div class="howto-frame">
+                <div class="howto-frame__window">
+                  <div class="howto-photos">
+                    <img class="howto-photos__img" src="./asset/howto-image1.webp" alt="バストアップ写真の例">
+                    <img class="howto-photos__img" src="./asset/howto-image2.webp" alt="全身写真の例">
+                    <img class="howto-photos__img" src="./asset/howto-image3.webp" alt="アピール写真の例">
+                  </div>
+                </div>
+              </div>
+              <!-- 固定：ダイヤ。中のラベルだけが横送り -->
+              <div class="howto-caption">
+                <img class="howto-diamond howto-diamond--l" src="./asset/deco-r.webp" alt="" aria-hidden="true">
+                <div class="howto-labels">
+                  <div class="howto-ltrack">
+                    <span class="howto-label"><img src="./asset/howto-step1.webp" alt="STEP1 バストアップの写真を1枚撮ろう！"></span>
+                    <span class="howto-label"><img src="./asset/howto-step2.webp" alt="STEP2 全身の写真を1枚撮ろう！"></span>
+                    <span class="howto-label"><img src="./asset/howto-step3.webp" alt="STEP3 アピール写真を撮ろう！（3枚まで）"></span>
+                  </div>
+                </div>
+                <img class="howto-diamond howto-diamond--r" src="./asset/deco-r.webp" alt="" aria-hidden="true">
+              </div>
+            </div>
+          </div>
+        </section>
+
         <!-- ▼ FLOW / 選考フロー -->
-        <section id="flow" class="sec" data-sub="4" aria-label="選考フロー">
-          <img class="sec-head" src="./asset/head05.webp" alt="選考フロー">
+        <section id="flow" class="sec" data-sub="5" aria-label="選考フロー">
+          <img class="sec-head" src="./asset/head06.webp" alt="選考フロー">
           <span class="schedule reveal reveal--zoom">
             <img class="schedule__img" src="./asset/schedule.webp" alt="応募期間 6.12 - 7.20">
           </span>
@@ -239,8 +412,8 @@
         </section>
 
         <!-- ▼ NOTES / 応募への注意事項 -->
-        <section id="notes" class="sec" data-sub="5" aria-label="応募への注意事項">
-          <img class="sec-head" src="./asset/head06.webp" alt="応募への注意事項">
+        <section id="notes" class="sec" data-sub="6" aria-label="応募への注意事項">
+          <img class="sec-head" src="./asset/head07.webp" alt="応募への注意事項">
           <ul class="notes stagger">
             <li><span class="notes__dot"></span>今回のオーディション応募による審査費用は、一切発生しません。</li>
             <li><span class="notes__dot"></span>審査会場への移動など審査過程における会場への交通費は各自のご負担となります。</li>
@@ -252,8 +425,8 @@
         </section>
 
         <!-- ▼ FAQ / よくあるご質問 -->
-        <section id="faq" class="sec" data-sub="6" aria-label="よくあるご質問">
-          <img class="sec-head" src="./asset/head07.webp" alt="よくあるご質問">
+        <section id="faq" class="sec" data-sub="7" aria-label="よくあるご質問">
+          <img class="sec-head" src="./asset/head08.webp" alt="よくあるご質問">
           <div class="faq stagger">
             <div class="faq-row">
               <img class="faq-row__badge" src="./asset/faq_q.webp" alt="Q">
@@ -286,7 +459,7 @@
 
       <!-- SECTION 09 / フッター -->
       <footer class="footer">
-        <p class="footer__logo">TryVII AUDITION</p>
+        <img class="footer__logo" src="./asset/logo-white.webp" alt="『TryVII』新メンバーオーディション NEW MEMBER AUDITION">
         <p class="footer__meta">コピーライト / プライバシーポリシーリンク<br>PPP STUDIO</p>
       </footer>
     </main>
@@ -296,8 +469,8 @@
     <img class="sparkle sparkle--r" src="./asset/deco-r.webp" alt="" aria-hidden="true">
 
     <!-- 応募CTA（モバイル下部固定）：LINE URLは要差し替え -->
-    <a class="floating-cta js-entry-link" href="#" rel="noopener">LINEで今すぐ応募する</a>
+    <a class="floating-cta js-entry-link" href="https://lin.ee/UYaxWzP" rel="noopener">LINEで今すぐ応募する</a>
 
-    <script src="./script.js?v=47"></script>
+    <script src="./script.js?v=58"></script>
   </body>
 </html>

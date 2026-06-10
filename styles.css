@@ -97,16 +97,86 @@ img { display: block; max-width: 100%; }
 
 /* ===== SECTION 01 / ヒーロー ===== */
 .hero {
+  position: relative;
   width: 100%;
   aspect-ratio: 390 / 699;
   overflow: hidden;
   background: #0c0a1e;
 }
-.hero__img {
+.hero__img,
+.hero__video {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: cover;       /* 9:16動画もヒーロー枠にフィット（はみ出しはトリミング） */
   object-position: center;
+}
+/* 動画は画像の上に重ねて表示。動画が無い／再生不可なら下の画像が見える */
+.hero__video { z-index: 1; background: #0c0a1e; }
+/* 装飾フレーム（白枠）＋ロゴ（白）を前面に重ねる */
+.hero__frame {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  width: calc(100% - 28px);   /* 縁から内側に配置 */
+  height: calc(100% - 28px);
+  object-fit: fill;
+  z-index: 2;
+  pointer-events: none;
+}
+/* PPP STUDIO presents（白ロゴ1枚）：中央→上へキビキビ移動しつつ brightness で黒→白へモーフ（同一オブジェクト） */
+.hero__presents {
+  position: absolute;
+  z-index: 60;            /* 白背景オーバーレイ(50)より前面 */
+  top: 6.5%;
+  left: 50%;
+  width: 58%;
+  height: auto;
+  transform: translate(-50%, 0);
+  pointer-events: none;
+  animation: ppp-splash 1.3s cubic-bezier(.65, 0, .35, 1) .8s both;
+}
+@keyframes ppp-splash {
+  0%   { top: 46%;  transform: translate(-50%, -50%); filter: brightness(0); }   /* 黒・中央 */
+  100% { top: 6.5%; transform: translate(-50%, 0);    filter: brightness(1); }   /* 白・上 */
+}
+
+/* ===== スプラッシュ：白全画面オーバーレイ（フェードアウトで動画が見える） ===== */
+.splash {
+  position: fixed;
+  inset: 0;
+  z-index: 50;            /* 動画の前・presents(60)の後ろ */
+  background: #fff;
+  pointer-events: none;
+  animation: splash-bg-out 1.0s ease .8s forwards;   /* 0.8s静止→白が引く */
+}
+@keyframes splash-bg-out {
+  to { opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .splash { display: none; }
+  .hero__presents { animation: none; filter: brightness(1); }
+}
+
+.hero__logo {
+  position: absolute;
+  z-index: 3;
+  top: 49%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 92%;
+  height: auto;
+  pointer-events: none;
+  animation: hero-logo-in 2.4s cubic-bezier(.22, .61, .36, 1) 1.7s both;
+}
+/* ロゴのズームフェードイン（大きめ→原寸／緩やか） */
+@keyframes hero-logo-in {
+  from { opacity: 0; transform: translate(-50%, -50%) scale(1.07); }
+  to   { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero__logo { animation: none; }
 }
 
 /* ===== 本文（白背景）／左右枠線 ===== */
@@ -287,8 +357,86 @@ img { display: block; max-width: 100%; }
 .card__title { margin: 0; font-weight: 700; font-size: 15px; line-height: 24px; color: var(--navy); }
 .card__body  { margin: 0; font-weight: 400; font-size: 13px; line-height: 31px; color: var(--navy); }
 
-/* ===== ABOUT：実績ポイント（写真×手書きコピーのジグザグ）===== */
+/* ===== ABOUT：実績ポイント（Image#4：2カラム＝上に実績1/2、下に写真＋実績3）===== */
+.ach {
+  position: relative;
+  width: 100%;
+  margin: 10px 0 2px;
+}
+/* 上部の区切り線（左=水色／右=ピンク、キラが中央寄り） */
+.ach-divider {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  width: 100%;
+  margin-bottom: 18px;
+}
+.ach-divider img { width: 49%; height: auto; display: block; }
+.ach__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 14px;
+  row-gap: 26px;
+  align-items: center;
+  justify-items: center;
+}
+.ach-cap {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+/* 写真：ピンク枠(左上)＋水色枠(右下)の二重フレーム */
+.ach-photo {
+  position: relative;
+  width: 84%;
+  justify-self: start;
+}
+.ach-photo__img {
+  width: 100%;
+  aspect-ratio: 1727 / 1392;
+  object-fit: cover;
+  display: block;
+  position: relative;
+  z-index: 1;
+}
+.ach-photo::before,
+.ach-photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.ach-photo::before { border: 2px solid var(--pink); transform: translate(-6px, -6px); z-index: 2; }
+.ach-photo::after  { border: 2px solid var(--blue); transform: translate(6px, 6px);  z-index: 0; }
+/* 実績3：上に青い区切り線＋キャプション */
+.ach-cap3 {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+.ach-cap3__line { width: 100%; height: auto; display: block; transform: scaleX(-1); }
+
+/* ===== ABOUT：実績ポイント（旧ジグザグ：未使用）===== */
 .sec--about { gap: 14px; }
+
+/* 公式SNS（説明の下に横並び） */
+.official-sns {
+  display: flex;
+  gap: 18px;
+  justify-content: center;
+  margin: 10px 0 2px;
+}
+.official-sns .sns {
+  width: 40px;
+  height: 40px;
+  display: block;
+  transition: transform .15s ease;
+}
+.official-sns .sns:hover { transform: scale(1.06); }
+.official-sns .sns img { width: 100%; height: 100%; }
 
 /* リード文（青の太字・2行） */
 .about-lead {
@@ -432,6 +580,192 @@ img { display: block; max-width: 100%; }
   height: auto;
 }
 
+/* ===== メンバー紹介カルーセル（左右ボタンでスライド）===== */
+.members {
+  position: relative;
+  width: 100%;
+  margin-top: 0;
+}
+.members__viewport {
+  overflow: hidden;
+  width: 100%;
+}
+.members__track {
+  display: flex;
+  transition: transform .45s cubic-bezier(.22, 1, .36, 1);
+  will-change: transform;
+}
+.member-slide {
+  flex: 0 0 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 4px 8px 0;
+}
+/* 写真＋SNSオーバーレイのまとまり */
+.member-slide__figure {
+  position: relative;
+  width: 96%;
+  align-self: center;
+}
+.member-slide__photo {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+/* SNS：写真の右上に縦並びでオーバーレイ */
+.member-slide__sns {
+  position: absolute;
+  top: 5%;
+  right: 4%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 2;
+}
+.member-slide__sns .sns {
+  width: 44px;
+  height: 44px;
+  display: block;
+  transition: transform .15s ease;
+}
+.member-slide__sns .sns:hover { transform: scale(1.06); }
+.member-slide__sns img { width: 100%; height: 100%; }
+
+/* COMMENT 吹き出し（枠は画像／中のテキストはHTML） */
+.member-slide__comment {
+  position: relative;
+  width: 100%;
+}
+.member-slide__bubble {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.member-slide__text {
+  position: absolute;
+  top: 22%;
+  left: 6.5%;
+  right: 6%;
+  bottom: 10%;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 10.5px;
+  line-height: 1.55;
+  letter-spacing: .2px;
+  color: var(--navy);
+}
+/* 左右ナビ（細い白シェブロン）：写真の左右端・縦中央にオーバーレイ。topはJSで写真中央に合わせる */
+.members__nav {
+  position: absolute;
+  top: 287px;
+  transform: translateY(-50%);
+  width: 34px;
+  height: 48px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+.members__nav::before {
+  content: "";
+  width: 15px;
+  height: 15px;
+  border-top: 3px solid #fff;
+  border-right: 3px solid #fff;
+}
+/* 写真の内側に配置（figureは88%幅＝写真左端6%/右端94%。さらに内側へ） */
+.members__nav--prev { left: 6%; }
+.members__nav--prev::before { transform: rotate(-135deg); margin-left: 5px; }
+.members__nav--next { right: 6%; }
+.members__nav--next::before { transform: rotate(45deg); margin-right: 5px; }
+.members__nav:active::before { opacity: .6; }
+
+/* ドット：写真の上（外）に配置・小さめ・きらめき(deco-r)をメンバーカラーで着色 */
+.members__dots {
+  display: flex;
+  gap: 13px;
+  justify-content: center;
+  margin: 2px 0 12px;
+}
+.members__dot {
+  width: 12px;
+  height: 12px;
+  -webkit-mask: url("./asset/deco-r.webp") center / contain no-repeat;
+  mask: url("./asset/deco-r.webp") center / contain no-repeat;
+  background-color: #c9d4e3;   /* JSでメンバーカラーを設定 */
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  opacity: .4;
+  transition: opacity .2s ease, transform .2s ease;
+}
+.members__dot.is-active { opacity: 1; transform: scale(1.25); }
+
+/* セクションラベル（MEMBER／PRODUCER：高さ揃え・中央） */
+.section-label {
+  width: auto;
+  height: 30px;
+  max-width: 82%;
+  display: block;
+  margin: 30px auto 16px;
+}
+
+/* ===== ginjiro（コラボクリエイター）紹介 ===== */
+.ginjiro {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin-top: 0;
+}
+.ginjiro__photo {
+  width: 100%;
+  height: auto;
+  display: block;
+  border: 1px solid var(--blue);
+}
+.ginjiro__name {
+  margin: 4px 0 0;
+  font-weight: 700;
+  font-size: 22px;
+  letter-spacing: 1.5px;
+  color: var(--navy);
+  text-align: center;
+}
+.ginjiro__desc {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.9;
+  letter-spacing: .2px;
+  color: var(--navy);
+  text-align: left;
+}
+.ginjiro__sns {
+  display: flex;
+  gap: 18px;
+  justify-content: center;
+  margin-top: 2px;
+}
+.ginjiro__sns .sns {
+  width: 40px;
+  height: 40px;
+  display: block;
+  transition: transform .15s ease;
+}
+.ginjiro__sns .sns:hover { transform: scale(1.06); }
+.ginjiro__sns .sns img { width: 100%; height: 100%; }
+
 /* ===== PPP写真スライドショー（CRYSTAL流用・3枚クロスフェード）===== */
 .ppp-slideshow {
   position: relative;
@@ -507,6 +841,40 @@ img { display: block; max-width: 100%; }
   .ppp-slideshow img { animation: none; }
   .ppp-slideshow img:nth-child(1) { opacity: 1; }
   .creators-track { animation: none; }
+}
+
+/* ===== 写真マーキー（セクションの合間・さりげない自動横スクロール）===== */
+.photostrip {
+  position: relative;
+  width: calc(100% + 48px);
+  margin: 20px -24px;          /* 左右の枠まで全幅に広げる */
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 28px, #000 calc(100% - 28px), transparent 100%);
+          mask-image: linear-gradient(90deg, transparent 0, #000 28px, #000 calc(100% - 28px), transparent 100%);
+}
+.photostrip__track {
+  display: flex;
+  width: max-content;
+  animation: photostrip-scroll 45s linear infinite;
+}
+.photostrip__row {
+  display: flex;
+  gap: 8px;
+  margin-right: 8px;
+}
+.photostrip__row img {
+  height: 116px;
+  width: auto;
+  display: block;
+  border-radius: 8px;
+  object-fit: cover;
+}
+@keyframes photostrip-scroll {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(-50%, 0, 0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .photostrip__track { animation: none; }
 }
 
 /* 5大サポート */
@@ -651,6 +1019,126 @@ img { display: block; max-width: 100%; }
   .schedule.is-shine::after { animation: none; }
 }
 
+/* ===== 応募方法（HOW TO）：見出し・写真枠・ダイヤは固定、写真とラベルだけ横送り ===== */
+.sec--howto { width: 100%; padding-bottom: 0; }
+/* 縦に長い土台＝横送りに使うスクロール距離（STEP3枚ぶん） */
+.howto-pin {
+  position: relative;
+  width: 100%;
+  height: 280vh;
+}
+/* 追従subheadバー（top:-28px＋高さ124＝下端96px）の直下に固定表示 */
+.howto-stage {
+  position: sticky;
+  top: 56px;
+  height: calc(100vh - 104px);
+  height: calc(100svh - 104px);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;   /* 上寄せ＝より高い位置で止める */
+  gap: 18px;
+  padding-top: 6px;
+  padding-bottom: 8px;
+}
+/* 固定の見出し */
+.howto-head { width: 100%; margin-bottom: 0; }
+
+/* 固定の2重フレーム（ピンク左上＋水色右下）。中の写真だけが横送り */
+.howto-frame {
+  position: relative;
+  width: 66%;
+  aspect-ratio: 1108 / 1477;
+  flex: 0 0 auto;
+}
+.howto-frame__window {       /* 写真の表示窓：はみ出しをクリップ */
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: 1;
+}
+.howto-photos {              /* 横スクロールするトラック（写真本体） */
+  display: flex;
+  height: 100%;
+  will-change: transform;
+}
+.howto-photos__img {
+  flex: 0 0 100%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;         /* 同じサイズにトリミング */
+  object-position: center top;
+  display: block;
+}
+.howto-frame::before,
+.howto-frame::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.howto-frame::before {       /* ピンク枠：左上にずらす（前面） */
+  border: 2px solid var(--pink);
+  transform: translate(-8px, -8px);
+  z-index: 2;
+}
+.howto-frame::after {        /* 水色枠：右下にずらす（背面） */
+  border: 2px solid var(--blue);
+  transform: translate(8px, 8px);
+  z-index: 0;
+}
+
+/* キャプション帯：ダイヤは固定、中のラベルだけ横送り */
+.howto-caption {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+}
+.howto-labels {              /* ラベルの表示窓 */
+  width: 92%;
+  height: 118px;
+  overflow: hidden;
+}
+.howto-ltrack {              /* 横スクロールするトラック（ラベル） */
+  display: flex;
+  height: 100%;
+  will-change: transform;
+}
+.howto-label {
+  flex: 0 0 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.howto-label img {
+  height: 114px;
+  width: auto;
+  max-width: 100%;
+  display: block;
+}
+/* 左右のダイヤ（deco-r.webp 流用）：固定。ラベル帯の上下中心に配置 */
+.howto-diamond {
+  position: absolute;
+  top: 50%;
+  width: 26px;
+  height: auto;
+  transform: translateY(-50%);
+  pointer-events: none;
+  z-index: 2;
+}
+.howto-diamond--l { left: 2px; }
+.howto-diamond--r { right: 2px; }
+
+/* フォールバック（reduced-motion / 非対応）：固定・横送りせず1枚目を表示 */
+.howto-pin--static { height: auto; }
+.howto-pin--static .howto-stage { position: static; height: auto; overflow: visible; padding: 6px 0 8px; }
+.howto-pin--static .howto-frame { width: 72%; }
+
 /* ===== 選考フロー ===== */
 .flow {
   display: flex;
@@ -747,7 +1235,7 @@ img { display: block; max-width: 100%; }
   text-align: center;
   padding: 24px 24px 96px;
 }
-.footer__logo { margin: 0 0 4px; font-weight: 700; font-size: 24px; line-height: 38px; color: #fff; }
+.footer__logo { width: 180px; max-width: 64%; height: auto; margin: 0 auto 12px; display: block; }
 .footer__meta { margin: 0; font-size: 10px; line-height: 16px; color: var(--cyan); }
 
 /* ===== 応募CTA（下部固定）=====
