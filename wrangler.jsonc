@@ -1,0 +1,8 @@
+{
+  // 静的サイト（Workers Assets）。リポジトリ直下を配信し、.git等は .assetsignore で除外
+  "name": "lp-tryvii-newmember-biz",
+  "compatibility_date": "2026-06-10",
+  "assets": {
+    "directory": "./"
+  }
+}
