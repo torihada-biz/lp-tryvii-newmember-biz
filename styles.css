@@ -845,14 +845,11 @@ img { display: block; max-width: 100%; }
 
 /* ライブ告知（アドトラック下） */
 .live-announce {
-  width: 100%;
-  margin: 22px 0 6px;
-  font-weight: 700;
-  font-size: 14px;
-  line-height: 1.9;
-  letter-spacing: .5px;
-  text-align: center;
-  color: var(--blue);
+  display: block;
+  width: 94%;
+  max-width: 360px;
+  height: auto;
+  margin: 24px auto 8px;
 }
 
 /* ===== 写真マーキー（セクションの合間・さりげない自動横スクロール）===== */
