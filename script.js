@@ -311,3 +311,18 @@
   measure();
   render();
 })();
+
+/* ---- TikTok Pixel: 応募ボタン(LINE)クリックで Lead を計測 ---- */
+(function () {
+  "use strict";
+  var links = document.querySelectorAll(".js-entry-link");
+  if (!links.length) return;
+  links.forEach(function (el) {
+    el.addEventListener("click", function () {
+      // 外部リンク(LINE)へ遷移する前に発火。ttqはsendBeaconで送るため遷移後も送信される
+      if (window.ttq && typeof window.ttq.track === "function") {
+        window.ttq.track("Lead");
+      }
+    });
+  });
+})();
