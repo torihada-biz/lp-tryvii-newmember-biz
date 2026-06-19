@@ -854,7 +854,8 @@ img { display: block; max-width: 100%; }
 
 /* ===== 写真マーキー（セクションの合間・さりげない自動横スクロール）===== */
 .photostrip__label {
-  margin: 20px 0 8px;
+  width: 100%;                 /* flex中央寄せの親でも左詰めにする */
+  margin: 16px 0 0;
   color: var(--navy);
   font-size: 10px;
   font-weight: 700;
@@ -864,11 +865,12 @@ img { display: block; max-width: 100%; }
 .photostrip {
   position: relative;
   width: calc(100% + 48px);
-  margin: 0 -24px 20px;        /* 左右の枠まで全幅に広げる（上はラベルが担保） */
+  margin: 28px -24px;          /* 左右の枠まで全幅に広げる／上下に余白 */
   overflow: hidden;
   -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 28px, #000 calc(100% - 28px), transparent 100%);
           mask-image: linear-gradient(90deg, transparent 0, #000 28px, #000 calc(100% - 28px), transparent 100%);
 }
+.photostrip--labeled { margin-top: 0; }   /* ラベル直下に寄せる */
 .photostrip__track {
   display: flex;
   width: max-content;
